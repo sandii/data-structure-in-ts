@@ -6,7 +6,7 @@
 * 
 * - Swap mininum number to leftest.
 * - Actually another version of Select Sort.
-* - Simplest in code.
+* - Simplest sort algorithm.
 */
 
 import { init, swap } from '../common/utils';
