@@ -14,7 +14,11 @@
 
 import { init, swap } from '../common/utils';
 
-const quickSort = (arr: number[], low: number, high: number): void => {
+const quickSort = (
+  arr: number[],
+  low: number,
+  high: number,
+): void => {
   if (low >= high) return;
   let pivotKey = Math.floor((low + high) / 2);
   const pivotValue = arr[pivotKey];

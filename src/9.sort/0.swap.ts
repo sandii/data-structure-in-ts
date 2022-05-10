@@ -4,7 +4,9 @@
 *
 * Swap Sort
 * 
-* Swap mininum number to leftest.
+* - Swap mininum number to leftest.
+* - Actually another version of Select Sort.
+* - Simplest in code.
 */
 
 import { init, swap } from '../common/utils';

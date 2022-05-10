@@ -4,7 +4,8 @@
  *
  * Insert Sort
  *
- * A lot like poker game, find place for poker card in sorted cards.
+ * A lot like poker game, insert poker card in your hand into right place among those already sorted cards.
+ * Use bubbling to do insering in codes bellow.
  */
 
 import { init, swap } from '../common/utils';

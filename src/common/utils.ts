@@ -7,7 +7,11 @@ export const init = (length = 20): number[] => {
   return arr;
 };
 
-export const swap = (arr: number[], i: number, j: number): void => {
+export const swap = (
+  arr: number[],
+  i: number,
+  j: number,
+): void => {
   const min = 0;
   const max = arr.length - 1;
   if (i < min || i > max || j < min || j > max) return;
