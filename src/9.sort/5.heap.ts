@@ -24,25 +24,30 @@ import { init, swap } from '../common/utils';
 
 const heapAdjust = (
   arr: number[],
-  sta: number,
+  parent: number,
   end: number,
 ): void => {
-  if (sta >= end) return;
-  if (sta >= arr.length || end >= arr.length) return;
-  let parent = sta;
-  let child = parent * 2 + 1; // child is left-child
-  while (child <= end) {
-    if (child + 1 <= end && arr[child + 1] > arr[child]) {
-      child++; // child becomes right-child
-    }
-    if (arr[child] > arr[parent]) {
-      swap(arr, child, parent);
-      parent = child;
-      child = child * 2 + 1;
-    } else {
-      break;
-    }
+  if (parent >= end) return;
+  if (parent >= arr.length || end >= arr.length) return;
+  
+  // child is left-child firstly
+  let child = parent * 2 + 1;
+  if (child > end) return;
+
+  // if right child is greater
+  // child becomes right-child
+  if (child + 1 <= end && arr[child + 1] > arr[child]) {
+    child++;
   }
+  
+  // if parent is greatest, stop
+  if (arr[parent] >= arr[child]) return;
+
+  // sink smaller element down
+  swap(arr, child, parent);
+
+  // check whether smaller element should go on sinking
+  heapAdjust(arr, child, end);
 };
 
 const heapSort = (arr: number[]): void => {
