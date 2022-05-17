@@ -5,7 +5,7 @@
 * Swap Sort
 * 
 * - Swap mininum number to leftest.
-* - Actually another version of Select Sort.
+* - Actually another version of Selection Sort.
 * - Simplest sort algorithm.
 */
 

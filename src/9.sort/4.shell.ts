@@ -5,7 +5,7 @@
  * Shell Sort
  *
  * - Invented in 1959, breaking O(n^2) limit historically.
- * - Upgraded verson of Insert Sort, avoiding to move some elements for long distance.
+ * - Upgraded Insert Sort, avoiding to move some elements for long distance.
  *
  * - In practice, firstly sort elements in some gap, then gradually shrink gap, until gap becomes 1.
  * - Dr. Knuth suggests gap = gap / 3 + 1, reason is too complicated for common people to understand.

@@ -2,14 +2,14 @@
  * Author: Chen Zhi <chenzhibupt@qq.com>
  * Date: May 9, 2022
  *
- * Select Sort
+ * Selection Sort
  *
  * Similar to Swap Sort, but record minimum number and swap to leftest till very end of every round.
  */
 
 import { init, swap } from '../common/utils';
 
-const selectSort = (arr: number[]): void => {
+const selectionSort = (arr: number[]): void => {
   for (let i = 0; i < arr.length; i++) {
     let min = i;
     for (let j = i + 1; j < arr.length; j++) {
@@ -25,5 +25,5 @@ const selectSort = (arr: number[]): void => {
 
 const arr = init();
 console.log(arr);
-selectSort(arr);
+selectionSort(arr);
 console.log(arr);
