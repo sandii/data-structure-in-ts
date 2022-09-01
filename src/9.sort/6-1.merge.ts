@@ -1,15 +1,15 @@
 /*
  * Author: Chen Zhi <chenzhibupt@qq.com>
- * Date: Sep 9, 2022
+ * Date: Sep 1, 2022
  *
  * Merge Sort
  *
  * Recursively split array into 2, until the sub-array only contains 1 element.
- * Merge 2 sorted array back together. 
+ * Merge 2 sorted array back together.
  *
  */
 
-import { init, swap } from '../common/utils';
+import { init } from '../common/utils';
 
 const merge = (
   left: number[],
