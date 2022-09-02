@@ -8,12 +8,7 @@
  *
  */
 
-type ElType = number;
-
-enum Status {
-  SUCCESS = 1,
-  FAIL = 0,
-}
+import { ElType, Status } from '../type';
 
 const MAXSIZE = 30;
 
@@ -68,7 +63,7 @@ class SequenceList {
     return this.isValidIndex(index)
       ? this.list[index]
       : null;
-  }  
+  }
 
   public locateElem(el: ElType): number {
     return this.list.indexOf(el);
