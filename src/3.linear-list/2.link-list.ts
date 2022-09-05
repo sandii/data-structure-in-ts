@@ -3,8 +3,9 @@
  * Date: Sep 3, 2022
  *
  * Link List
- * - index from 1
- * - head is a empty node, its next points to first node, this can ensure operation consistency
+ * - Index from 1
+ * - Head is a empty node, its next points to first node
+ * - Empty node can ensure operation consistency, there is no need to tell its head or not
  *
  */
 
