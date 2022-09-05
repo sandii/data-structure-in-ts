@@ -5,8 +5,10 @@
  * Link List
  * - Index from 1
  * - Head is a empty node, its next points to first node
- * - Empty node can ensure operation consistency, there is no need to tell its head or not
+ * - Empty node can ensure operation consistency
+ * - Then there is no need to tell the current node is head or not
  *
+ * - [ADVANTAGE] With pointer, there is no need to move a lot of data while insertion or deletion 
  */
 
 import { ElType, Status } from '../type';

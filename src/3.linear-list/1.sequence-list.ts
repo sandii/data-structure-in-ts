@@ -5,6 +5,8 @@
  * Sequence List
  * - index from 0
  * - We implement our length prop, although JS array has its own length
+ * 
+ * - [SHORTAGE] It has to move a lot of data while insertion or deletion
  *
  */
 
@@ -25,6 +27,7 @@ class SequenceList {
       index = this.length;
     }
 
+    // Without JS API slice and concat, we could've moved a lot data now
     const left = this.list.slice(0, index);
     const right = this.list.slice(index);
 
@@ -43,6 +46,7 @@ class SequenceList {
       return Status.FAIL;
     }
 
+    // Without JS API splice, we could've moved a lot data now
     this.list.splice(index, 1);
     this.length--;
 
