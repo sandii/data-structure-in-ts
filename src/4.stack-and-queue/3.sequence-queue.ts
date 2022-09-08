@@ -4,11 +4,12 @@
  *
  * Sequence Queue
  * - Stack only needs a TOP pointer
- * - But queue needs 3 flags:
+ * - But queue needs 2 flags:
  *  1. HEAD points head cell
  *  2. TAIL points next free cell
- *  3. LENGTH tell queue is full or empty,
- *  because when queue is empty or full, HEAD and TAIL will both point to same cell
+ * 
+ * - And Squence Queue also needs a LENGTH to tell queue is full or empty
+ * - Because when queue is empty or full, HEAD and TAIL will both point to same cell
  */
 
 import { ElType, Status } from '../type';

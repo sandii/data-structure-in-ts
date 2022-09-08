@@ -5,7 +5,7 @@
  * Link Stack
  * - Always insert at head
  * - So, there is no need set empty leading node
- * - That makes it simpler than Link List
+ * - That makes it simpler than common Link List
  */
 
 import { ElType } from '../type';
