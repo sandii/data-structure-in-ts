@@ -6,5 +6,5 @@
  * Invented in 1977 by three mathematicians
  * 
  * 
- * - Time complexity: O(m * n)
+ * - Time complexity: O(m + n)
  */
