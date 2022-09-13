@@ -29,5 +29,71 @@
  * next[5] = 3: 'ABABA' has same prefix and affix 'ABA'
  * next[6] = 0: 'ABABAC' has no same prefix and affix
  * 
+ * - Now we have next[] array, which can tell where PI should be at next step if not match
+ * 
  * - Time complexity: O(m + n)
  */
+
+const getNextArr = (p: string): number[] => {
+  const next: number[] = [];
+  next[0] = 0;
+  next[1] = 0;
+
+  let sta = 0;
+  let end = 1;
+
+  while (end + 1 < p.length) {
+    if (p[sta] === p[end]) {
+      sta++;
+    } else {
+      sta = 0;
+    }
+    end++;
+
+    next[end] = sta;
+  }
+
+  return next;
+};
+
+const kmp = (s: string, p: string): number => {
+  if (s.length === 0 || p.length === 0) return -1;
+
+  let si = 0;
+  let pi = 0;
+  const next = getNextArr(p);
+
+  while (si < s.length && pi < p.length) {
+    if (s[si] === p[pi]) {
+      si++;
+      pi++;
+      continue;
+    }
+
+    if (pi === 0) {
+      si++;
+    } else {
+      pi = next[pi];
+    }
+  }
+
+  if (pi === p.length) {
+    return si - pi;
+  } else {
+    return -1;
+  }
+};
+
+console.log(getNextArr('ABABACD')); // 0 0 0 1 2 3 0
+
+console.log(kmp('hello', 'hel')); // 0
+console.log(kmp('hello', 'ell')); // 1
+console.log(kmp('hello', 'loo')); // -1
+console.log(kmp('hello', 'll')); // 2
+console.log(kmp('hello', '')); // -1
+console.log(kmp('hello', 'asdf')); // -1
+
+console.log(kmp('abcabx', 'abx')); // 3
+console.log(kmp('ababababax', 'abx')); // -1
+console.log(kmp('abcabcabcabc', 'abcd')); // -1
+
