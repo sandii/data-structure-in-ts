@@ -7,7 +7,7 @@
  * - Returns index which pattern string (p) matches in target string (s)
  * - Returns -1 when nothing matches
  * - Simply match 2 strings letter by letter
- * 
+ *
  * - Time complexity: O(m * n)
  */
 
