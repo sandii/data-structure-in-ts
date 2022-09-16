@@ -4,10 +4,24 @@
  *
  * Binary Tree
  *
- * preOrder:  parent -> lchild -> rchild
- * inOrder:   lchild -> parent -> rchild
- * postOrder: lchild -> rchild -> parent
+ * PreOrder:  parent -> lchild -> rchild
+ * InOrder:   lchild -> parent -> rchild
+ * PostOrder: lchild -> rchild -> parent
  *
+ * For example (# is null) :
+ * ABD##EH##I##CF##G##
+ * 
+ *       A
+ *     /   \
+ *    B     C
+ *   / \    /\
+ *  D   E  F  G
+ *     / \
+ *    H   I
+ * 
+ * PreOrder:  ABDEHICFG
+ * InOrder:   DBHEIAFCG
+ * PostOrder: DHIEBFGCA
  */
 
 type ElType = string;
@@ -38,13 +52,17 @@ class BinaryTree {
     const newNode =
       data === '#' ? null : new TreeNode(data);
 
-    switch(pos) {
+    switch (pos) {
       case 'root':
         this.root = newNode;
+        break;
       case 'lchild':
         (parent as TreeNode).lchild = newNode;
+        break;
       case 'rchild':
         (parent as TreeNode).rchild = newNode;
+      default:
+        break;
     }
 
     if (!newNode) return;
@@ -61,19 +79,22 @@ class BinaryTree {
   }
   public inOrderTraverse(currentNode = this.root): void {
     if (!currentNode) return;
-    this.preOrderTraverse(currentNode.lchild);
+    this.inOrderTraverse(currentNode.lchild);
     console.log(currentNode.data);
-    this.preOrderTraverse(currentNode.rchild);
+    this.inOrderTraverse(currentNode.rchild);
   }
   public postOrderTraverse(currentNode = this.root): void {
     if (!currentNode) return;
-    this.preOrderTraverse(currentNode.lchild);
-    this.preOrderTraverse(currentNode.rchild);
+    this.postOrderTraverse(currentNode.lchild);
+    this.postOrderTraverse(currentNode.rchild);
     console.log(currentNode.data);
   }
 }
 
 const biTree = new BinaryTree('ABD##EH##I##CF##G##');
-biTree.preOrderTraverse();
-biTree.inOrderTraverse();
-biTree.postOrderTraverse();
+console.log('pre');
+biTree.preOrderTraverse(); // ABDEHICFG
+console.log('in');
+biTree.inOrderTraverse(); // DBHEIAFCG
+console.log('post');
+biTree.postOrderTraverse(); // DHIEBFGCA
