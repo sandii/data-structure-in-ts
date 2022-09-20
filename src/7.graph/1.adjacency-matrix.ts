@@ -48,7 +48,7 @@ class AdjacencyMatrix {
     });
   }
 
-  public printVertext(): void {
+  public printVertex(): void {
     console.log(this.vertex);
   }
 
@@ -130,7 +130,7 @@ const matrix = new AdjacencyMatrix(
 );
 
 console.log('Vertex:');
-matrix.printVertext();
+matrix.printVertex();
 console.log('\n');
 
 console.log('Arc:');
@@ -147,7 +147,7 @@ const matrix2 = new AdjacencyMatrix(
 );
 
 console.log('Vertex:');
-matrix2.printVertext();
+matrix2.printVertex();
 console.log('\n');
 
 console.log('Arc:');
