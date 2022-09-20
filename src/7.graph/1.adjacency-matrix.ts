@@ -9,13 +9,13 @@
  *
  */
 
-type Vertex = string;
+export type Vertex = string;
 
 class AdjacencyMatrix {
-  protected vertex: Vertex[] = [];
-  protected arc: number[][] = [];
-  protected vertexNum = 0;
-  protected arcNum = 0;
+  private vertex: Vertex[] = [];
+  private arc: number[][] = [];
+  private vertexNum = 0;
+  private arcNum = 0;
 
   private queue: number[] = []; // for BFS
   private visited: boolean[] = []; // for BFS and DFS
@@ -123,8 +123,6 @@ class AdjacencyMatrix {
     this.visitBFS(j as number);
   }
 }
-
-export default AdjacencyMatrix;
 
 const matrix = new AdjacencyMatrix(
   'abcde',
