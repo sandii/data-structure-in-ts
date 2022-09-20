@@ -57,7 +57,9 @@ class AdjacencyMatrix {
       for (let j = 0; j < this.vertexNum; j++) {
         const weight = this.arc[i][j];
         if (weight === 0 || weight === Infinity) continue;
-        console.log(`${i} -> ${j}: ${weight}`);
+        console.log(
+          `${this.vertex[i]} -> ${this.vertex[j]}: ${weight}`,
+        );
       }
     }
   }
@@ -80,9 +82,11 @@ class AdjacencyMatrix {
     console.log(this.vertex[i]);
 
     for (let j = 0; j < this.vertexNum; j++) {
+      if (this.visited[j]) continue;
+
       const weight = this.arc[i][j];
       if (weight === 0 || weight === Infinity) continue;
-      if (this.visited[j]) continue;
+
       this.visitDFS(j);
     }
   }
@@ -106,8 +110,12 @@ class AdjacencyMatrix {
     for (let j = 0; j < this.vertexNum; j++) {
       if (this.visited[j]) continue;
 
+      const weight = this.arc[i][j];
+      if (weight === 0 || weight === Infinity) continue;
+
       // enqueue
       this.queue.push(j);
+      this.visited[j] = true;
     }
 
     if (!this.queue.length) return;
@@ -127,9 +135,11 @@ console.log('\n');
 
 console.log('Arc:');
 matrix.printArc();
+console.log('\n');
 
 console.log('DFS:');
 matrix.traverseDFS(); // aebcd
+console.log('\n');
 
 const matrix2 = new AdjacencyMatrix(
   'ABCDEFGHI',
@@ -142,7 +152,12 @@ console.log('\n');
 
 console.log('Arc:');
 matrix2.printArc();
+console.log('\n');
 
 console.log('DFS:');
 matrix2.traverseDFS(); // ABCDEFGHI
+console.log('\n');
 
+console.log('BFS:');
+matrix2.traverseBFS(); // A BF CGIE DH
+console.log('\n');
