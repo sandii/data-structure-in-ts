@@ -62,7 +62,7 @@ class AdjacencyList {
   }
 
   public printVertex(): void {
-    console.log(this.vertex);
+    console.log(this.vertex.map(item => item.data));
   }
 
   public printArc(): void {
@@ -111,14 +111,12 @@ class AdjacencyList {
 
     for (let i = 0; i < this.vertexNum; i++) {
       if (this.visited[i]) continue;
-
+      this.visited[i] = true;
       this.visitBFS(i);
     }
   }
 
   private visitBFS(i: number): void {
-    this.visited[i] = true;
-
     console.log(this.vertex[i].data);
 
     let next = this.vertex[i].firstArc;
@@ -127,8 +125,9 @@ class AdjacencyList {
 
       if (!this.visited[j]) {
         this.queue.push(j);
+        this.visited[j] = true;
       }
-      
+
       next = next.next;
     }
 
