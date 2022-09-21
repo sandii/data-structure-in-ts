@@ -62,6 +62,7 @@ class MyAdjacencyMatrix extends AdjacencyMatrix {
     this.allEdges.forEach(edge => {
       const iRoot = this.getRoot(edge.i);
       const jRoot = this.getRoot(edge.j);
+
       if (iRoot === jRoot) {
         // two vertex on same tree, that will make up a loop
         return;
@@ -87,8 +88,8 @@ class MyAdjacencyMatrix extends AdjacencyMatrix {
 
   private getRoot(i: number): number {
     let parent = i;
-    while (parent !== -1) {
-      parent = this.parent[i];
+    while (this.parent[parent] !== -1) {
+      parent = this.parent[parent];
     }
     return parent;
   }
