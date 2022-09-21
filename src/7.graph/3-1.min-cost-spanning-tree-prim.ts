@@ -3,17 +3,18 @@
  * Date: Sep 20, 2022
  *
  * Minimum Cost Spanning Tree
- *
  * - Connet all vertex with minimum cost
  *
- * I. Prim
+ * Prim: Thinking on vertex
  *  1. Start from 0
  *  2. Search for nearest neighbor among unconnected vertexes and connect it
  *  3. Repeat step 2 until all vertexes are connected
- *
+ * 
  */
 
-class ConnectArc {
+import AdjacencyMatrix from './common/1.adjacency-matrix';
+
+class Edge {
   public constructor(
     public i: number,
     public j: number,
@@ -21,58 +22,23 @@ class ConnectArc {
   ) {}
 }
 
-class AdjacencyMatrix {
-  protected vertex: string[] = [];
-  protected arc: number[][] = [];
-  protected vertexNum = 0;
-  protected arcNum = 0;
-
-  public constructor(vStr: string, aStr: string) {
-    this.initVertext(vStr);
-    this.initArc(aStr);
-  }
-
-  private initVertext(vStr: string): void {
-    this.vertex = vStr.split('');
-    this.vertexNum = vStr.length;
-  }
-
-  private initArc(aStr: string): void {
-    // init matrix
-    for (let i = 0; i < this.vertexNum; i++) {
-      this.arc[i] = [];
-      for (let j = 0; j < this.vertexNum; j++) {
-        this.arc[i][j] = i === j ? 0 : Infinity;
-      }
-    }
-
-    const arcs = aStr.split(',');
-    this.arcNum = arcs.length;
-
-    arcs.forEach(subStr => {
-      const [i, j, weight] = subStr.split('-');
-      this.arc[Number(i)][Number(j)] = Number(weight);
-    });
-  }
-}
-
 class MyAdjacencyMatrix extends AdjacencyMatrix {
   private connected: number[] = [];
-  private connectArc: ConnectArc[] = [];
+  private edges: Edge[] = [];
 
   public constructor(vStr: string, aStr: string) {
     super(vStr, aStr);
   }
 
   public printConnectArc(): void {
-    this.connectArc.forEach(item =>
+    this.edges.forEach(item =>
       console.log(`${item.i} - ${item.j}: ${item.weight}`),
     );
   }
 
   public prim(): void {
     this.connected = [0];
-    this.connectArc = [];
+    this.edges = [];
 
     while (this.connected.length < this.vertexNum) {
       let minCost = Infinity;
@@ -94,8 +60,8 @@ class MyAdjacencyMatrix extends AdjacencyMatrix {
 
       if (minCost < Infinity) {
         this.connected.push(to);
-        this.connectArc.push(
-          new ConnectArc(from, to, minCost),
+        this.edges.push(
+          new Edge(from, to, minCost),
         );
       }
     }
