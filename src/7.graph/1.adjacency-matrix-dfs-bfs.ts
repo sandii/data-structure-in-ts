@@ -9,59 +9,14 @@
  *
  */
 
-export type Vertex = string;
+import AdjacencyMatrix from './common/adjacency-matrix';
 
-class AdjacencyMatrix {
-  private vertex: Vertex[] = [];
-  private arc: number[][] = [];
-  private vertexNum = 0;
-  private arcNum = 0;
-
+class MyAdjacencyMatrix extends AdjacencyMatrix {
   private queue: number[] = []; // for BFS
   private visited: boolean[] = []; // for BFS and DFS
 
   public constructor(vStr: string, aStr: string) {
-    this.initVertext(vStr);
-    this.initArc(aStr);
-  }
-
-  private initVertext(vStr: string): void {
-    this.vertex = vStr.split('');
-    this.vertexNum = vStr.length;
-  }
-
-  private initArc(aStr: string): void {
-    // init matrix
-    for (let i = 0; i < this.vertexNum; i++) {
-      this.arc[i] = [];
-      for (let j = 0; j < this.vertexNum; j++) {
-        this.arc[i][j] = i === j ? 0 : Infinity;
-      }
-    }
-
-    const arcs = aStr.split(',');
-    this.arcNum = arcs.length;
-
-    arcs.forEach(subStr => {
-      const [i, j, weight] = subStr.split('-');
-      this.arc[Number(i)][Number(j)] = Number(weight);
-    });
-  }
-
-  public printVertex(): void {
-    console.log(this.vertex);
-  }
-
-  public printArc(): void {
-    for (let i = 0; i < this.vertexNum; i++) {
-      for (let j = 0; j < this.vertexNum; j++) {
-        const weight = this.arc[i][j];
-        if (weight === 0 || weight === Infinity) continue;
-        console.log(
-          `${this.vertex[i]} -> ${this.vertex[j]}: ${weight}`,
-        );
-      }
-    }
+    super(vStr, aStr)
   }
 
   public traverseDFS(): void {
@@ -124,7 +79,7 @@ class AdjacencyMatrix {
   }
 }
 
-const matrix = new AdjacencyMatrix(
+const matrix = new MyAdjacencyMatrix(
   'abcde',
   '0-4-6,1-0-9,1-2-3,2-0-2,2-3-5,3-4-1',
 );
@@ -141,7 +96,7 @@ console.log('DFS:');
 matrix.traverseDFS(); // aebcd
 console.log('\n');
 
-const matrix2 = new AdjacencyMatrix(
+const matrix2 = new MyAdjacencyMatrix(
   'ABCDEFGHI',
   '0-1-1,0-5-1,1-0-1,1-2-1,1-6-1,1-8-1,2-1-1,2-3-1,2-8-1,3-2-1,3-4-1,3-6-1,3-7-1,3-8-1,4-3-1,4-5-1,4-7-1,5-0-1,5-4-1,5-6-1,6-1-1,6-3-1,6-5-1,7-3-1,7-4-1,7-6-1,8-1-1,8-2-1,8-3-1',
 );
