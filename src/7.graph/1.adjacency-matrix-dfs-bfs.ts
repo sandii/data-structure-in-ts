@@ -2,21 +2,26 @@
  * Author: Chenzhi <chenzhibupt@qq.com>
  * Date: Sep 19, 2022
  *
- * Adjacency Matrix
+ * Deep First Search
+ * - Recursive going deeper, much like traversing a tree
+ * - Need a visited[] array recording visited vertex
  *
- * - Using an array to store vertexes
- * - Using an matrix to store arcs
+ * Breadth First Search
+ * - Visit vertex layer by layer
+ * - Push next batch of vertexes into a queue waiting
+ * - Everytime dequeue a vertex, push next batch
+ * - Also need a visited[] array
  *
  */
 
-import AdjacencyMatrix from './common/adjacency-matrix';
+import AdjacencyMatrix from './common/1.adjacency-matrix';
 
 class MyAdjacencyMatrix extends AdjacencyMatrix {
   private queue: number[] = []; // for BFS
   private visited: boolean[] = []; // for BFS and DFS
 
   public constructor(vStr: string, aStr: string) {
-    super(vStr, aStr)
+    super(vStr, aStr);
   }
 
   public traverseDFS(): void {

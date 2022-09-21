@@ -2,80 +2,18 @@
  * Author: Chenzhi <chenzhibupt@qq.com>
  * Date: Sep 20, 2022
  *
- * Adjacency List
- *
- * - An array stores vertexes
- * - And every cell contains a link list which stores related arcs
- *
- * - [ADVANTAGE] Save space when graph is spare
- * - [SHORTAGE] Link list is not as convenient as array
+ * Almost same with Adjacency matrix
  *
  */
 
-class VertexNode {
-  public constructor(public data: string = '') {}
-  public firstArc: ArcNode | null = null;
-}
+import AdjacencyList from './common/2.adjacency-list';
 
-class ArcNode {
-  public adjacency: number = 0;
-  public weight: number = 0;
-  public next: ArcNode | null = null;
-}
-
-class AdjacencyList {
-  private vertex: VertexNode[] = [];
-  private vertexNum = 0;
-  private arcNum = 0;
-
+class MyAdjacencyList extends AdjacencyList {
   private visited: boolean[] = [];
   private queue: number[] = [];
 
   public constructor(vStr: string, aStr: string) {
-    this.initVertex(vStr);
-    this.initArc(aStr);
-  }
-
-  private initVertex(vStr: string): void {
-    this.vertexNum = vStr.length;
-    this.vertex = vStr
-      .split('')
-      .map(s => new VertexNode(s));
-  }
-
-  private initArc(aStr: string): void {
-    const arr = aStr.split(',');
-    this.arcNum = arr.length;
-
-    arr.forEach(str => {
-      const [i, j, weight] = str.split('-');
-      const vertexItem = this.vertex[Number(i)];
-      if (!vertexItem) return;
-
-      const arc = new ArcNode();
-      arc.adjacency = Number(j);
-      arc.weight = Number(weight);
-      arc.next = vertexItem.firstArc;
-
-      vertexItem.firstArc = arc;
-    });
-  }
-
-  public printVertex(): void {
-    console.log(this.vertex.map(item => item.data));
-  }
-
-  public printArc(): void {
-    for (let i = 0; i < this.vertexNum; i++) {
-      let next = this.vertex[i].firstArc;
-      while (next) {
-        const j = next.adjacency;
-        console.log(
-          `${this.vertex[i].data} -> ${this.vertex[j].data}: ${next.weight}`,
-        );
-        next = next.next;
-      }
-    }
+    super(vStr, aStr);
   }
 
   public traverseDFS(): void {
@@ -137,7 +75,7 @@ class AdjacencyList {
   }
 }
 
-const list = new AdjacencyList(
+const list = new MyAdjacencyList(
   'abcde',
   '0-4-6,1-0-9,1-2-3,2-0-2,2-3-5,3-4-1',
 );
@@ -154,7 +92,7 @@ console.log('DFS:');
 list.traverseDFS(); // aebcd
 console.log('\n');
 
-const list2 = new AdjacencyList(
+const list2 = new MyAdjacencyList(
   'ABCDEFGHI',
   '0-1-1,0-5-1,1-0-1,1-2-1,1-6-1,1-8-1,2-1-1,2-3-1,2-8-1,3-2-1,3-4-1,3-6-1,3-7-1,3-8-1,4-3-1,4-5-1,4-7-1,5-0-1,5-4-1,5-6-1,6-1-1,6-3-1,6-5-1,7-3-1,7-4-1,7-6-1,8-1-1,8-2-1,8-3-1',
 );
