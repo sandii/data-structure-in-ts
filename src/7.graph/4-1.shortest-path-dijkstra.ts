@@ -18,45 +18,90 @@
 
 import AdjacencyMatrix from './common/1.adjacency-matrix';
 
+class ActiveVertex {
+  public constructor(
+    public data = '',
+    public prev = 0,
+    public cost = 0,
+  ) {}
+
+  public done = false;
+}
+
 class MyAdjacencyMatrix extends AdjacencyMatrix {
   public constructor(vStr: string, aStr: string) {
     super(vStr, aStr);
   }
 
-  private path: number[] = [];
-  private costs: number[] = [];
-  private done: boolean[] = [];
+  private visited: (ActiveVertex | null)[] = [];
 
-  public printPath(): void {}
+  public printPath(j = this.vertex.length - 1): void {
+    const path: ActiveVertex[] = [];
+    let prev = j;
+    while (prev) {
+      const vertex = this.visited[prev];
+      if (!vertex) return;
+
+      path.push(vertex);
+      prev = vertex.prev;
+    }
+    path.push(this.visited[0]!);
+    path.reverse();
+    console.log(path.map(vertex => vertex.data));
+  }
 
   public dijkstra(): void {
-    this.path = Array(this.vertexNum).fill(0);
-    this.costs = Array(this.vertexNum).fill(Infinity);
-    this.costs = [0];
-    this.done = Array(this.vertexNum).fill(false);
-    this.done[0] = true;
+    this.visited = Array(this.vertexNum).fill(null);
+    this.visited[0] = new ActiveVertex();
 
-    for (let k = 0; k < this.vertexNum; k++) {
-      let prev = 0;
-      let minCost = Infinity;
-      let next = 0;
+    this.visitDijkstra(0);
+  }
 
-      for (let j = 0; j < this.vertexNum; j++) {
-        if (this.done[j]) continue;
+  private visitDijkstra(i: number): void {
+    this.addNewBatch(i);
+    const j = this.getNearestVertex();
+    this.visited[j]!.done = true;
+    this.visitDijkstra(j);
+  }
 
-        const weight = this.arc[prev][j];
-        if (weight === 0) continue;
+  private addNewBatch(i: number): void {
+    for (let j = 0; j < this.vertexNum; j++) {
+      const weight = this.arc[i][j];
+      if (this.visited[j]?.done) continue;
+      if (weight === 0 || weight === Infinity) continue;
 
-        const newCost = Math.min(this.costs[prev] + weight, this.costs[j]);
+      const prevCost = this.visited[i]?.cost || 0;
+      const currCost = prevCost + weight;
+      const visitedCost = this.visited[j]?.cost || 0;
+      if (currCost >= visitedCost) continue;
 
-        if (weight < minCost) {
-          minCost = weight;
-          next = j;
-        }
-      }
-
-      this.done[next] = true;
-      // this.path.push(next);
+      this.visited[j] = new ActiveVertex(
+        this.vertex[j],
+        i,
+        currCost,
+      );
     }
   }
+
+  private getNearestVertex(): number {
+    let minCost = Infinity;
+    let minIndex = 0;
+    for (let j = 0; j < this.vertexNum; j++) {
+      const vertex = this.visited[j];
+      if (!vertex) continue;
+
+      if (vertex.cost < minCost) {
+        minCost = vertex.cost;
+        minIndex = j;
+      }
+    }
+    return minIndex;
+  }
 }
+
+const matrix = new MyAdjacencyMatrix(
+  '12345678',
+  '0-1-1,0-2-5,1-0-1,1-2-3,1-3-7,1-4-5,2-0-5,2-1-3,2-4-1,2-5-7,3-1-7,3-4-2,3-6-3,4-1-5,4-2-1,4-3-2,4-5-3,4-6-6,4-7-9,5-2-7,5-4-3,5-7-5,6-3-3,6-4-6,6-7-2,6-8-7,7-4-9,7-5-5,7-6-2,7-8-4,8-6-7,8-7-4',
+);
+matrix.dijkstra();
+matrix.printPath();
