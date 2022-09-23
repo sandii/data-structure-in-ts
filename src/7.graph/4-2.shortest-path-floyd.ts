@@ -21,25 +21,16 @@ class MyAdjacencyMatrix extends AdjacencyMatrix {
   private cost: number[][] = [];
   private path: number[][] = [];
 
-  public printPath(): void {}
-
   public floyd(): void {
-    this.initCost();
-    this.initPath();
+    this.initFloyd();
     this.mainLoop();
   }
-  private initCost(): void {
-    // copy
+  private initFloyd(): void {
     for (let i = 0; i < this.vertexNum; i++) {
+      this.cost[i] = [];
+      this.path[i] = [];
       for (let j = 0; j < this.vertexNum; j++) {
         this.cost[i][j] = this.arc[i][j];
-      }
-    }
-  }
-
-  private initPath(): void {
-    for (let i = 0; i < this.vertexNum; i++) {
-      for (let j = 0; j < this.vertexNum; j++) {
         this.path[i][j] = j;
       }
     }
@@ -53,11 +44,27 @@ class MyAdjacencyMatrix extends AdjacencyMatrix {
             this.cost[i][m] + this.cost[m][j];
           if (shortcut < this.cost[i][j]) {
             this.cost[i][j] = shortcut;
-            this.path[i][j] = m;
+            this.path[i][j] = this.path[i][m];
           }
         }
       }
     }
+  }
+
+  public printPath(
+    sta = 0,
+    end = this.vertexNum - 1,
+  ): void {
+    const result = [];
+
+    let shortcut = sta;
+    while (shortcut !== end) {
+      result.push(shortcut);
+      shortcut = this.path[shortcut][end];
+    }
+
+    result.push(end);
+    console.log(result);
   }
 }
 
