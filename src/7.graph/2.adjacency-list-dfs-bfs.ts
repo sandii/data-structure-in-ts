@@ -76,7 +76,7 @@ class MyAdjacencyList extends AdjacencyList {
 }
 
 const list = new MyAdjacencyList(
-  'abcde',
+  'a,b,c,d,e',
   '0-4-6,1-0-9,1-2-3,2-0-2,2-3-5,3-4-1',
 );
 
@@ -93,7 +93,7 @@ list.traverseDFS(); // aebcd
 console.log('\n');
 
 const list2 = new MyAdjacencyList(
-  'ABCDEFGHI',
+  'A,B,C,D,E,F,G,H,I',
   '0-1-1,0-5-1,1-0-1,1-2-1,1-6-1,1-8-1,2-1-1,2-3-1,2-8-1,3-2-1,3-4-1,3-6-1,3-7-1,3-8-1,4-3-1,4-5-1,4-7-1,5-0-1,5-4-1,5-6-1,6-1-1,6-3-1,6-5-1,7-3-1,7-4-1,7-6-1,8-1-1,8-2-1,8-3-1',
 );
 

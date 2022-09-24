@@ -15,6 +15,7 @@
 class VertexNode {
   public constructor(public data: string = '') {}
   public firstArc: ArcNode | null = null;
+  public inDegree: number = 0;
 }
 
 class ArcNode {
@@ -34,10 +35,10 @@ class AdjacencyList {
   }
 
   private initVertex(vStr: string): void {
-    this.vertexNum = vStr.length;
     this.vertex = vStr
-      .split('')
+      .split(',')
       .map(s => new VertexNode(s));
+    this.vertexNum = this.vertex.length;
   }
 
   private initArc(aStr: string): void {
@@ -55,6 +56,8 @@ class AdjacencyList {
       arc.next = vertexItem.firstArc;
 
       vertexItem.firstArc = arc;
+
+      this.vertex[Number(j)].inDegree++;
     });
   }
 
