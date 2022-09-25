@@ -11,10 +11,20 @@
  * - Use arcs to present tasks in workflow
  * - Weight of arc is time of this task will consume
  * - Two vertexes of one arc present start & end moment of this task
- * - Every vertex has its Earliest & Latest time, which is crucial!
+ * - Every vertex has its earliest & latest time, which is crucial!
  * 
- * What kind of tasks can be call Critical?
- * - 
+ * What kind of tasks can be called Critical?
+ * - Merely meets deadline
+ * - That is: earliest start time + time cost === latest end time
+ * - So we need to know earliest & latest time of every vertex
+ * 
+ * Earliest time:
+ * - Use Topology Sort
+ * - Vertex's earliest time is latest (longest distance) among all its in-pathes
+ * 
+ * Latest time:
+ * - Start from end vertexes which has same earlist & latest time
+ * - Vertex's latest time is earliest (longest distance) among all its out-pathes
  * 
  */
 
