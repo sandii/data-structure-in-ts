@@ -3,6 +3,7 @@
  * Date: Sep 26, 2022
  *
  * Binary Search
+ * - O(logn)
  *
  */
 
