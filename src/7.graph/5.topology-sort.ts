@@ -30,6 +30,7 @@ class MyAdjacencyList extends AdjacencyList {
 
   private initQueue(): void {
     this.queue = [];
+    this.removed = [];
     this.vertex.forEach((vertex, index) => {
       if (vertex.inDegree === 0) {
         this.queue.push(index);
