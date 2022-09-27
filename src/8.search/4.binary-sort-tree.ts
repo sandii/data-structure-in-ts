@@ -51,14 +51,43 @@ class BinarySortTree {
     if (isExist) return;
 
     const newNode = new TreeNode(el);
-    if (el < this.parent?.data!) {
+    if (el < this.parent!.data) {
       this.parent!.lchild = newNode;
     } else {
       this.parent!.rchild = newNode;
     }
   }
 
-  public remove(el: number): void {}
+  public remove(el: number): void {
+    if (!this.root) return;
+
+    const isExist = this.search(el);
+    if (!isExist) return;
+
+    const currentSide =
+      el < this.parent!.data ? 'left' : 'right';
+
+    const curr =
+      currentSide === 'left'
+        ? this.parent!.lchild
+        : this.parent!.rchild;
+
+    if (this.getChildrenNum(curr!) < 2) {
+      const offspring = curr?.lchild || curr?.rchild;
+      const pointer =
+        currentSide === 'left' ? 'lchild' : 'rchild';
+      this.parent![pointer] = offspring!;
+    } else {
+      // todo
+    }
+  }
+
+  private getChildrenNum(curr: TreeNode) {
+    let num = 0;
+    if (curr.lchild) num++;
+    if (curr.rchild) num++;
+    return num;
+  }
 
   public traverse(): void {
     this.doTraverse(this.root);
