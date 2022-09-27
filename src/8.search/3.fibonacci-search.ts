@@ -30,12 +30,17 @@ const getFibIndex = (arrLen: number): number => {
   return fibIndex;
 };
 
-const fillArr = (arr: number[], fibIndex: number): void => {
-  const max = arr[arr.length - 1];
-  const fillNum = fibonacci[fibIndex] - arr.length;
+const fillArr = (
+  arr: number[],
+  fibIndex: number,
+): number[] => {
+  const arrCopy = arr.slice();
+  const max = arrCopy[arrCopy.length - 1];
+  const fillNum = fibonacci[fibIndex] - arrCopy.length;
   for (let i = 0; i < fillNum; i++) {
-    arr.push(max);
+    arrCopy.push(max);
   }
+  return arrCopy;
 };
 
 const fibonacciSearch = (
@@ -43,22 +48,21 @@ const fibonacciSearch = (
   target: number,
 ): number => {
   generateFibonacci();
-  const arrLen = arr.length;
-  let fibIndex = getFibIndex(arrLen);
-  fillArr(arr, fibIndex);
+  let fibIndex = getFibIndex(arr.length);
+  const arrCopy = fillArr(arr, fibIndex);
 
   let low = 0;
-  let high = arr.length - 1;
+  let high = arrCopy.length - 1;
   while (low <= high) {
     const mid = low + fibonacci[fibIndex - 1];
-    if (target === arr[mid]) {
-      return mid > arrLen - 1 ? arrLen - 1 : mid;
+    if (target === arrCopy[mid]) {
+      return mid > arr.length - 1 ? arr.length - 1 : mid;
     }
-    if (target < arr[mid]) {
-      high = mid - 1;
+    if (target < arrCopy[mid]) {
+      high = mid;
       fibIndex = fibIndex - 1;
     } else {
-      low = mid + 1;
+      low = mid;
       fibIndex = fibIndex - 2; // !!!
     }
   }
