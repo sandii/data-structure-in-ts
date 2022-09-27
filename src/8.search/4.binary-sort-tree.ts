@@ -5,7 +5,7 @@
  * Binary Sort Tree
  *
  * If lchild and rchild both exit,
- * Find rightest (biggest) offspring of lchild to replace *tp
+ * Find rightest (biggest) offspring of lchild to replace removed node
  * Because rightest offspring of lchild is still smaller than rchild
  *
  */
@@ -64,29 +64,42 @@ class BinarySortTree {
     const isExist = this.search(el);
     if (!isExist) return;
 
-    const currentSide =
-      el < this.parent!.data ? 'left' : 'right';
+    const currSide =
+      el < this.parent!.data ? 'lchild' : 'rchild';
 
-    const curr =
-      currentSide === 'left'
-        ? this.parent!.lchild
-        : this.parent!.rchild;
+    // node to be removed
+    const curr = this.parent![currSide]!;
 
-    if (this.getChildrenNum(curr!) < 2) {
-      const offspring = curr?.lchild || curr?.rchild;
-      const pointer =
-        currentSide === 'left' ? 'lchild' : 'rchild';
-      this.parent![pointer] = offspring!;
+    if (!curr.lchild || !curr.rchild) {
+      // one child or no child
+      this.parent![currSide] = curr.lchild || curr.rchild;
     } else {
-      // todo
+      // two children
+      this.handleTwoChildren(curr, currSide);
     }
   }
 
-  private getChildrenNum(curr: TreeNode) {
-    let num = 0;
-    if (curr.lchild) num++;
-    if (curr.rchild) num++;
-    return num;
+  private handleTwoChildren(
+    curr: TreeNode,
+    currSide: 'lchild' | 'rchild',
+  ): void {
+    // use lchild's rightest offspring to replace current node
+
+    // if lchild has no rchild
+    if (!curr.lchild?.rchild) {
+      this.parent![currSide]= curr.lchild;
+      return;
+    }
+
+    let rightestOffspring = curr.lchild!;
+    let rightestOffspringParent = curr;
+    while (rightestOffspring.rchild) {
+      rightestOffspringParent = rightestOffspring;
+      rightestOffspring = rightestOffspring.rchild;
+    }
+
+    curr.data = rightestOffspring.data;
+    rightestOffspringParent.rchild = rightestOffspring.lchild;
   }
 
   public traverse(): void {
@@ -115,11 +128,11 @@ console.log('\nSorted...\n');
 
 tree.traverse();
 
-// console.log('\nRemoved all muliples of 5...\n');
+console.log('\nRemoved all muliples of 5...\n');
 
-// for (let i = 0; i < 20; i++) {
-//   const el = (i + 1) * 5;
-//   tree.remove(el);
-// }
+for (let i = 0; i < 20; i++) {
+  const el = (i + 1) * 5;
+  tree.remove(el);
+}
 
-// tree.traverse();
+tree.traverse();
