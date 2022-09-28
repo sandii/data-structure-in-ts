@@ -20,21 +20,46 @@ class TreeNode {
 class AVLTree {
   private root: TreeNode | null = null;
 
-  public insert(data: number): void {
+  public insert(data: number): void {}
+
+  private rotateR(oldTop: TreeNode): TreeNode {
+    const newTop = oldTop.lchild!;
+    oldTop.lchild = newTop.rchild;
+    newTop.rchild = oldTop;
+    return newTop;
+  }
+  private rotateL(oldTop: TreeNode): TreeNode {
+    const newTop = oldTop.rchild!;
+    oldTop.rchild = newTop.lchild;
+    newTop.lchild = oldTop;
+    return newTop;
+  }
+  private balanceR(node: TreeNode): void {}
+  private balanceL(node: TreeNode): void {}
+
+  public inOrderTraverse(): void {
+    this.doInOrderTraverse(this.root);
   }
 
-  private rotateR(curr: TreeNode): void {}
-  private rotateL(curr: TreeNode): void {}
-
-  private balanceR(curr: TreeNode): void {}
-  private balanceL(curr: TreeNode): void {}
-
-  public inOrderTraverse(): void {}
-
-  private doInOrderTraverse(curr: TreeNode | null): void {}
+  private doInOrderTraverse(node: TreeNode | null): void {
+    if (!node) return;
+    this.doInOrderTraverse(node.lchild);
+    console.log(node.data);
+    this.doInOrderTraverse(node.rchild);
+  }
 
   public getHeight(): number {
-    return 0;
+    return this.doGetHeight(this.root);
+  }
+
+  private doGetHeight(node: TreeNode | null): number {
+    if (!node) return 0;
+    return (
+      Math.max(
+        this.doGetHeight(node.lchild),
+        this.doGetHeight(node.rchild),
+      ) + 1
+    );
   }
 }
 
