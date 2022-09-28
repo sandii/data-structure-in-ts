@@ -10,7 +10,7 @@
  *
  * For example (# is null) :
  * ABD##EH##I##CF##G##
- * 
+ *
  *       A
  *     /   \
  *    B     C
@@ -18,7 +18,7 @@
  *  D   E  F  G
  *     / \
  *    H   I
- * 
+ *
  * PreOrder:  ABDEHICFG
  * InOrder:   DBHEIAFCG
  * PostOrder: DHIEBFGCA
@@ -90,6 +90,8 @@ class BinaryTree {
     console.log(currentNode.data);
   }
 }
+
+export default BinaryTree;
 
 const biTree = new BinaryTree('ABD##EH##I##CF##G##');
 console.log('pre');
