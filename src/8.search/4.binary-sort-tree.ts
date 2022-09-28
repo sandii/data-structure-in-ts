@@ -99,15 +99,22 @@ class BinarySortTree {
     // replace current node with lchild's rightest offspring
     const leftMaxNode = this.getMaxNode(curr.lchild!);
     curr.data = leftMaxNode.data;
-    curr.lchild = this.doRemove(curr.lchild, leftMaxNode.data);
+    curr.lchild = this.doRemove(
+      curr.lchild,
+      leftMaxNode.data,
+    );
     return curr;
   }
 
   public getMaxNode(curr: TreeNode): TreeNode {
-    
+    if (!curr.rchild) {
+      return curr;
+    } else {
+      return this.getMaxNode(curr.rchild);
+    }
   }
 
-  public inOrdertraverse(): void {
+  public inOrderTraverse(): void {
     this.doInOrderTraverse(this.root);
   }
 
@@ -123,21 +130,21 @@ export default BinarySortTree;
 
 const tree = new BinarySortTree();
 
-// for (let i = 0; i < 20; i++) {
-//   const el = Math.floor(Math.random() * 100);
-//   console.log(el);
-//   tree.insert(el);
-// }
+for (let i = 0; i < 20; i++) {
+  const el = Math.floor(Math.random() * 100);
+  console.log(el);
+  tree.insert(el);
+}
 
-// console.log('\nSorted...\n');
+console.log('\nSorted...\n');
 
-// tree.traverse();
+tree.inOrderTraverse();
 
-// console.log('\nRemoved all muliples of 5...\n');
+console.log('\nRemoved all muliples of 5...\n');
 
-// for (let i = 0; i < 20; i++) {
-//   const el = (i + 1) * 5;
-//   tree.remove(el);
-// }
+for (let i = 0; i < 20; i++) {
+  const el = (i + 1) * 5;
+  tree.remove(el);
+}
 
-// tree.traverse();
+tree.inOrderTraverse();
