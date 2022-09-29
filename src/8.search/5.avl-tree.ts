@@ -14,7 +14,6 @@ class TreeNode {
   public constructor(public data = 0) {}
   public lchild: TreeNode | null = null;
   public rchild: TreeNode | null = null;
-  public balanceFactor = 0;
 }
 
 class AVLTree {
@@ -28,14 +27,33 @@ class AVLTree {
     newTop.rchild = oldTop;
     return newTop;
   }
+
   private rotateL(oldTop: TreeNode): TreeNode {
     const newTop = oldTop.rchild!;
     oldTop.rchild = newTop.lchild;
     newTop.lchild = oldTop;
     return newTop;
   }
-  private balanceR(node: TreeNode): void {}
-  private balanceL(node: TreeNode): void {}
+
+  private balanceR(node: TreeNode): TreeNode {
+    const bf = this.getBalanceFactor(node.rchild);
+    if (bf < 0) {
+      return this.rotateL(node);
+    } else {
+      node.rchild = this.rotateR(node.rchild!);
+      return this.rotateL(node);
+    }
+  }
+
+  private balanceL(node: TreeNode): TreeNode {
+    const bf = this.getBalanceFactor(node.lchild);
+    if (bf > 0) {
+      return this.rotateR(node);
+    } else {
+      node.lchild = this.rotateL(node.lchild!);
+      return this.rotateR(node);
+    }
+  }
 
   public inOrderTraverse(): void {
     this.doInOrderTraverse(this.root);
@@ -59,6 +77,18 @@ class AVLTree {
         this.doGetHeight(node.lchild),
         this.doGetHeight(node.rchild),
       ) + 1
+    );
+  }
+
+  // Balance Factor
+  // bf === 0: left & right child have same height
+  // bf > 0: left is taller
+  // bf < 0: right is taller
+  private getBalanceFactor(node: TreeNode | null): number {
+    if (!node) return 0;
+    return (
+      this.getBalanceFactor(node.lchild) -
+      this.getBalanceFactor(node.rchild)
     );
   }
 }
