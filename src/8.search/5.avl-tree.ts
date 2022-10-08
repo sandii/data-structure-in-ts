@@ -23,10 +23,11 @@ class TreeNode {
 }
 
 class AVLTree {
-  private root: TreeNode | null = null;
+  public root: TreeNode | null = null;
   private taller = false;
 
   public insert(data: number): void {
+    this.taller = false;
     this.root = this.doInsert(this.root, data);
   }
 
@@ -34,11 +35,9 @@ class AVLTree {
     node: TreeNode | null,
     data: number,
   ): TreeNode {
-    const newNode = new TreeNode(data);
-
     if (!node) {
       this.taller = true;
-      return newNode;
+      return new TreeNode(data);
     }
 
     if (data === node.data) {
@@ -169,10 +168,15 @@ export default AVLTree;
 const tree = new AVLTree();
 
 for (let i = 0; i < 20; i++) {
-  const data = Math.floor(Math.random() * 100);
-  tree.insert(data);
-  console.log(data);
+  // const data = Math.floor(Math.random() * 100);
+  // tree.insert(data);
+  // console.log(data);
+  tree.insert(i);
 }
 
+console.log('In-Order Traverse:');
 tree.inOrderTraverse();
+console.log('Tree Height:');
 console.log(tree.getHeight());
+console.log('Tree Root:');
+console.log(tree.root?.data);
