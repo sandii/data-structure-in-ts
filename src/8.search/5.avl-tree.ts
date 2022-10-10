@@ -23,7 +23,7 @@ class TreeNode {
 }
 
 class AVLTree {
-  public root: TreeNode | null = null;
+  private root: TreeNode | null = null;
   private taller = false;
 
   public insert(data: number): void {
@@ -150,8 +150,8 @@ class AVLTree {
   private getBalanceFactor(node: TreeNode | null): number {
     if (!node) return BalanceFactor.EQUAL_TALLER;
     const bf =
-      this.getBalanceFactor(node.lchild) -
-      this.getBalanceFactor(node.rchild);
+      this.doGetHeight(node.lchild) -
+      this.doGetHeight(node.rchild);
 
     if (bf === 0) return BalanceFactor.EQUAL_TALLER;
 
@@ -168,15 +168,11 @@ export default AVLTree;
 const tree = new AVLTree();
 
 for (let i = 0; i < 20; i++) {
-  // const data = Math.floor(Math.random() * 100);
-  // tree.insert(data);
-  // console.log(data);
-  tree.insert(i);
+  const data = Math.floor(Math.random() * 100);
+  tree.insert(data);
 }
 
 console.log('In-Order Traverse:');
 tree.inOrderTraverse();
 console.log('Tree Height:');
 console.log(tree.getHeight());
-console.log('Tree Root:');
-console.log(tree.root?.data);
